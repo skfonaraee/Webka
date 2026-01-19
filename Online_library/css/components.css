@@ -1,0 +1,128 @@
+.nav {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-list a {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.nav-list a:hover {
+  color: #000;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.hero p {
+  margin-top: 10px;
+  color: #666;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+}
+
+/* Hero с фоном */
+.hero-image {
+  background: url("../images/hero-books.jpg") center/cover no-repeat;
+  padding: 120px 20px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.hero-text {
+  background: rgba(255,255,255,0.9);
+  max-width: 600px;
+  margin: auto;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* Сетка жанров */
+.genre-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+}
+
+.genre-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: transform 0.2s;
+}
+
+.genre-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Карточки книг */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+.footer {
+  background-color: #ffffff;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+  padding: 20px;
+  margin-top: 60px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  object-fit: cover;
+  height: 250px; /* одинаковая высота для всех карточек */
+  transition: transform 0.2s;
+}
+
+.card img:hover {
+  transform: scale(1.03);
+}
