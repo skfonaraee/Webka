@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ongoing Dramas | DoramaNight</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html">
+                        <div class="logo-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <span class="logo-text">DoramaNight</span>
+                    </a>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search dramas by title, genre, actor...">
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                
+                <!-- User Actions -->
+                <div class="user-actions">
+                    <a href="login.html" class="btn-login" id="loginBtn">
+                        <i class="fas fa-user"></i>
+                        <span>Login / Register</span>
+                    </a>
+                    <div class="user-profile hidden" id="userProfile">
+                        <div class="profile-dropdown">
+                            <img src="images/default-avatar.jpg" alt="User Avatar" class="profile-avatar">
+                            <span class="profile-name">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                            <div class="dropdown-menu">
+                                <a href="profile.html"><i class="fas fa-user-circle"></i> My Profile</a>
+                                <a href="profile.html#bookmarks"><i class="fas fa-bookmark"></i> My Bookmarks</a>
+                                <a href="profile.html#settings"><i class="fas fa-cog"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html#popular"><i class="fas fa-fire"></i> Popular</a></li>
+                    <li><a href="index.html#premiere"><i class="fas fa-star"></i> Premiers</a></li>
+                    <li><a href="index.html#upcoming"><i class="fas fa-calendar-alt"></i> Upcoming</a></li>
+                    <li><a href="ongoing.html" class="active"><i class="fas fa-tv"></i> Ongoing</a></li>
+                    <li><a href="catalog.html"><i class="fas fa-list"></i> Catalog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Ongoing Dramas Section -->
+        <section class="catalog-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-tv"></i>
+                        Ongoing Dramas
+                    </h2>
+                    <p class="section-subtitle">Currently airing Korean dramas. New episodes coming your way!</p>
+                </div>
+
+                <div class="catalog-layout">
+                    <!-- Filters Sidebar -->
+                    <aside class="filters-sidebar">
+                        <div class="filters-header">
+                            <h3><i class="fas fa-filter"></i> Filters</h3>
+                            <button class="btn-clear-filters" id="clearFilters">Clear All</button>
+                        </div>
+                        
+                        <!-- Year Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Year</h4>
+                            <div class="filter-options year-filter">
+                                <select id="yearFrom">
+                                    <option value="">From</option>
+                                    <!-- Options populated by JS -->
+                                </select>
+                                <select id="yearTo">
+                                    <option value="">To</option>
+                                    <!-- Options populated by JS -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Country Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Country</h4>
+                            <div class="filter-options">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="country" value="all" checked> All Countries
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="country" value="South Korea"> South Korea
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="country" value="Japan"> Japan
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="country" value="China"> China
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Genre Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Genres <span class="selected-count" id="selectedGenresCount">0/5</span></h4>
+                            <div class="filter-options genre-filter" id="genreFilter">
+                                <!-- Genre checkboxes populated by JS -->
+                            </div>
+                        </div>
+                        
+                        <button class="btn-apply-filters" id="applyFilters">Apply Filters</button>
+                    </aside>
+
+                    <!-- Drama Grid -->
+                    <div class="drama-grid-container">
+                        <div class="grid-header">
+                            <div class="results-count">
+                                <span id="resultsCount">0</span> ongoing dramas
+                            </div>
+                            <div class="sort-options">
+                                <label for="sortBy">Sort by:</label>
+                                <select id="sortBy">
+                                    <option value="popularity">Popularity</option>
+                                    <option value="rating">Rating</option>
+                                    <option value="newest">Newest First</option>
+                                    <option value="oldest">Oldest First</option>
+                                    <option value="title">Title A-Z</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="drama-grid" id="dramaGrid">
+                            <!-- Drama cards will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="pagination">
+                            <button class="pagination-btn prev" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="page-numbers">
+                                <span class="page-number active">1</span>
+                                <span class="page-number">2</span>
+                                <span class="page-number">3</span>
+                                <span class="dots">...</span>
+                                <span class="page-number">10</span>
+                            </div>
+                            <button class="pagination-btn next">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-moon"></i>
+                        <span>DoramaNight</span>
+                    </div>
+                    <p class="footer-description">
+                        Your ultimate destination for Korean dramas. Discover, track, and discuss your favorite shows with our community.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Popular Dramas</a></li>
+                        <li><a href="#">Ongoing Dramas</a></li>
+                        <li><a href="#">Upcoming Dramas</a></li>
+                        <li><a href="#">Top Rated</a></li>
+                        <li><a href="#">Genres</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Forums</a></li>
+                        <li><a href="#">Reviews</a></li>
+                        <li><a href="#">Watch Parties</a></li>
+                        <li><a href="#">Fan Art</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 DoramaNight. All rights reserved. This site is for educational purposes only.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <span class="divider">|</span>
+                    <a href="#">Terms of Service</a>
+                    <span class="divider">|</span>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bookmark Modal -->
+    <div class="modal bookmark-modal" id="bookmarkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add to Bookmarks</h3>
+                <button class="modal-close" id="closeBookmarkModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Select status for <span id="modalDramaTitle">Drama Title</span>:</p>
+                <div class="bookmark-options">
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="watching">
+                        <div class="option-content">
+                            <i class="fas fa-play-circle"></i>
+                            <div>
+                                <h4>Watching</h4>
+                                <p>Currently watching this drama</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="planned">
+                        <div class="option-content">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Planned</h4>
+                                <p>Plan to watch later</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="completed">
+                        <div class="option-content">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4>Completed</h4>
+                                <p>Finished watching</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="dropped">
+                        <div class="option-content">
+                            <i class="fas fa-times-circle"></i>
+                            <div>
+                                <h4>Dropped</h4>
+                                <p>Stopped watching</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="favorites">
+                        <div class="option-content">
+                            <i class="fas fa-heart"></i>
+                            <div>
+                                <h4>Favorites</h4>
+                                <p>All-time favorites</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelBookmark">Cancel</button>
+                <button class="btn-primary" id="saveBookmark">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="data/dramas.js"></script>
+    <script src="js/ongoing.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/rating.js"></script>
+    <script src="js/bookmarks.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

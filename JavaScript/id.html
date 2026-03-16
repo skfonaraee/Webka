@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Работа с DOM</title>
+    <style>
+        .card { border: 1px solid #ccc; padding: 10px; margin: 10px; width: 200px; display: inline-block; }
+        .active { border: 2px solid blue; font-weight: bold; }
+        .highlight { background-color: yellow; }
+    </style>
+</head>
+<body>
+
+    <h1 id="main-title">Old title</h1>
+    
+    <div class="card">Card 1</div>
+    <div class="card">Card 2</div>
+    <div class="card">Card 3</div>
+
+    <p id="description">Исходный текст параграфа.</p>
+    
+    <div id="content-box">Здесь будет новый HTML</div>
+
+    <img id="my-img" src="old-image.jpg" alt="Image" width="100">
+    
+    <br>
+    <a id="my-link" href="https://google.com">Ссылка для проверки</a>
+
+    <hr>
+    <button id="btn-main">Button (Task 12, 13, 14)</button>
+    <button id="btn-toggle">Change Highlight (Task 10)</button>
+    <button id="btn-interactive">Mini interactive (Task 15)</button>
+
+    <script src="prompt.js"></script>
+</body>
+</html>

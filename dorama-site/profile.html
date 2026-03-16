@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoramaNight | My Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for profile page */
+        .profile-header {
+            background: linear-gradient(135deg, var(--color-accent-primary), var(--color-accent-secondary));
+            padding: var(--spacing-xl) 0;
+            margin-bottom: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .profile-info {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xl);
+        }
+        
+        .profile-avatar-large {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            background-color: var(--color-bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .avatar-upload {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--color-accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        
+        .avatar-upload:hover {
+            background-color: var(--color-accent-secondary);
+            transform: scale(1.1);
+        }
+        
+        .avatar-upload input {
+            display: none;
+        }
+        
+        .profile-details h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-xs);
+            color: white;
+        }
+        
+        .profile-details p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: var(--spacing-xl);
+        }
+        
+        .profile-stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--color-border);
+            margin-bottom: var(--spacing-xl);
+            overflow-x: auto;
+        }
+        
+        .tab-btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            background: none;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            font-size: 1rem;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all var(--transition-fast);
+        }
+        
+        .tab-btn:hover {
+            color: var(--color-accent-primary);
+        }
+        
+        .tab-btn.active {
+            color: var(--color-accent-primary);
+            border-bottom-color: var(--color-accent-primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .bookmarks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .bookmark-status {
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+        
+        .status-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-primary);
+        }
+        
+        .status-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .icon-watching { background-color: #4CAF50; }
+        .icon-planned { background-color: #2196F3; }
+        .icon-completed { background-color: #9C27B0; }
+        .icon-dropped { background-color: #F44336; }
+        .icon-favorites { background-color: #FF9800; }
+        
+        .settings-section {
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .settings-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-text-primary);
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+        
+        .form-control:focus {
+            border-color: var(--color-accent-primary);
+            box-shadow: 0 0 0 2px rgba(123, 97, 255, 0.2);
+        }
+        
+        .form-hint {
+            display: block;
+            margin-top: var(--spacing-xs);
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+        
+        .danger-zone {
+            border: 2px solid var(--color-danger);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .danger-zone h3 {
+            color: var(--color-danger);
+        }
+        
+        .btn-danger {
+            background-color: var(--color-danger);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+        
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+        
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-md);
+            background-color: var(--color-bg-primary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--color-bg-secondary);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--color-accent-primary);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-text-secondary);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text-muted);
+        }
+        
+        @media (max-width: 768px) {
+            .profile-info {
+                flex-direction: column;
+                text-align: center;
+                gap: var(--spacing-lg);
+            }
+            
+            .profile-stats {
+                justify-content: center;
+            }
+            
+            .bookmarks-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header (same as index.html) -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">
+                        <div class="logo-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <span class="logo-text">DoramaNight</span>
+                    </a>
+                </div>
+                
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search dramas...">
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                
+                <div class="user-actions">
+                    <div class="user-profile" id="userProfile">
+                        <div class="profile-dropdown">
+                            <img src="images/default-avatar.jpg" alt="User Avatar" class="profile-avatar">
+                            <span class="profile-name">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                            <div class="dropdown-menu">
+                                <a href="profile.html"><i class="fas fa-user-circle"></i> My Profile</a>
+                                <a href="profile.html#bookmarks"><i class="fas fa-bookmark"></i> My Bookmarks</a>
+                                <a href="profile.html#settings"><i class="fas fa-cog"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="index.html#popular"><i class="fas fa-fire"></i> Popular</a></li>
+                    <li><a href="index.html#premiere"><i class="fas fa-star"></i> Premiers</a></li>
+                    <li><a href="index.html#upcoming"><i class="fas fa-calendar-alt"></i> Upcoming</a></li>
+                    <li><a href="ongoing.html"><i class="fas fa-tv"></i> Ongoing</a></li>
+                    <li><a href="catalog.html"><i class="fas fa-list"></i> Catalog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Profile Header -->
+            <section class="profile-header" id="profileHeader">
+                <div class="profile-info">
+                    <div class="profile-avatar-large">
+                        <img src="images/default-avatar.jpg" alt="Profile Avatar" id="profileAvatar">
+                        <div class="avatar-upload">
+                            <input type="file" id="avatarInput" accept="image/*">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    <div class="profile-details">
+                        <h1 id="profileUsername">K-Drama Fan</h1>
+                        <p id="profileEmail">user@example.com</p>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <span class="stat-value" id="totalBookmarks">0</span>
+                                <span class="stat-label">Bookmarks</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="stat-value" id="totalWatching">0</span>
+                                <span class="stat-label">Watching</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="stat-value" id="totalCompleted">0</span>
+                                <span class="stat-label">Completed</span>
+                            </div>
+                            <div class="profile-stat">
+                                <span class="stat-value" id="memberSince">2024</span>
+                                <span class="stat-label">Member Since</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Tabs -->
+            <div class="profile-tabs">
+                <button class="tab-btn active" data-tab="bookmarks">My Bookmarks</button>
+                <button class="tab-btn" data-tab="account">Account Settings</button>
+                <button class="tab-btn" data-tab="preferences">Preferences</button>
+            </div>
+
+            <!-- Bookmarks Tab -->
+            <div class="tab-content active" id="bookmarksTab">
+                <section class="bookmark-status" id="watchingStatus">
+                    <h3 class="status-title">
+                        <span class="status-icon icon-watching">
+                            <i class="fas fa-play-circle"></i>
+                        </span>
+                        Currently Watching
+                    </h3>
+                    <div class="bookmarks-grid" id="watchingGrid">
+                        <!-- Watching dramas will be loaded here -->
+                    </div>
+                </section>
+                
+                <section class="bookmark-status" id="plannedStatus">
+                    <h3 class="status-title">
+                        <span class="status-icon icon-planned">
+                            <i class="fas fa-clock"></i>
+                        </span>
+                        Plan to Watch
+                    </h3>
+                    <div class="bookmarks-grid" id="plannedGrid">
+                        <!-- Planned dramas will be loaded here -->
+                    </div>
+                </section>
+                
+                <section class="bookmark-status" id="completedStatus">
+                    <h3 class="status-title">
+                        <span class="status-icon icon-completed">
+                            <i class="fas fa-check-circle"></i>
+                        </span>
+                        Completed
+                    </h3>
+                    <div class="bookmarks-grid" id="completedGrid">
+                        <!-- Completed dramas will be loaded here -->
+                    </div>
+                </section>
+                
+                <section class="bookmark-status" id="favoritesStatus">
+                    <h3 class="status-title">
+                        <span class="status-icon icon-favorites">
+                            <i class="fas fa-heart"></i>
+                        </span>
+                        Favorites
+                    </h3>
+                    <div class="bookmarks-grid" id="favoritesGrid">
+                        <!-- Favorite dramas will be loaded here -->
+                    </div>
+                </section>
+                
+                <section class="bookmark-status" id="droppedStatus">
+                    <h3 class="status-title">
+                        <span class="status-icon icon-dropped">
+                            <i class="fas fa-times-circle"></i>
+                        </span>
+                        Dropped
+                    </h3>
+                    <div class="bookmarks-grid" id="droppedGrid">
+                        <!-- Dropped dramas will be loaded here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Account Settings Tab -->
+            <div class="tab-content" id="accountTab">
+                <section class="settings-section">
+                    <h3><i class="fas fa-user-cog"></i> Account Information</h3>
+                    <form id="accountForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="username">Username</label>
+                                <input type="text" class="form-control" id="username" value="K-Drama Fan">
+                                <span class="form-hint">8-16 characters, letters and numbers required</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email Address</label>
+                                <input type="email" class="form-control" id="email" value="user@example.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="currentPassword">Current Password</label>
+                            <input type="password" class="form-control" id="currentPassword" placeholder="Enter current password">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="newPassword">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="confirmPassword">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </form>
+                </section>
+            </div>
+
+            <!-- Preferences Tab -->
+            <div class="tab-content" id="preferencesTab">
+                <section class="settings-section">
+                    <h3><i class="fas fa-palette"></i> Display Preferences</h3>
+                    <div class="theme-toggle">
+                        <div>
+                            <h4>Dark Theme</h4>
+                            <p>Toggle between dark and light theme</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="themeToggle" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </section>
+                
+                <section class="settings-section">
+                    <h3><i class="fas fa-bell"></i> Notification Settings</h3>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="notifyNewEpisodes" checked>
+                            <span>Notify me when new episodes are released</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="notifyRecommendations" checked>
+                            <span>Send personalized drama recommendations</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="notifyCommunity" checked>
+                            <span>Notify me about community activities</span>
+                        </label>
+                    </div>
+                    <button class="btn-primary" id="savePreferences">Save Preferences</button>
+                </section>
+                
+                <section class="danger-zone">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                    <p>Once you delete your account, there is no going back. Please be certain.</p>
+                    <button class="btn-danger" id="deleteAccount">Delete Account</button>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (same as index.html) -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-moon"></i>
+                        <span>DoramaNight</span>
+                    </div>
+                    <p class="footer-description">
+                        Your ultimate destination for Korean dramas. Discover, track, and discuss your favorite shows with our community.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Popular Dramas</a></li>
+                        <li><a href="index.html">Ongoing Dramas</a></li>
+                        <li><a href="index.html">Upcoming Dramas</a></li>
+                        <li><a href="index.html">Top Rated</a></li>
+                        <li><a href="index.html">Genres</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Forums</a></li>
+                        <li><a href="#">Reviews</a></li>
+                        <li><a href="#">Watch Parties</a></li>
+                        <li><a href="#">Fan Art</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 DoramaNight. All rights reserved. This site is for educational purposes only.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <span class="divider">|</span>
+                    <a href="#">Terms of Service</a>
+                    <span class="divider">|</span>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Files -->
+    <script src="data/dramas.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/rating.js"></script>
+    <script src="js/bookmarks.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

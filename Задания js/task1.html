@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form1" onsubmit="return validateForm1(event)">
+  <div>
+    <label>Имя:</label><br>
+    <input type="text" id="name" placeholder="Введите имя">
+    <span id="nameError" style="color:red"></span>
+  </div>
+  <div>
+    <label>Email:</label><br>
+    <input type="email" id="email" placeholder="example@domain.com">
+    <span id="emailError" style="color:red"></span>
+  </div>
+  <div>
+    <label>Пароль:</label><br>
+    <input type="password" id="password">
+    <span id="passError" style="color:red"></span>
+  </div>
+  
+  <button type="submit">Отправить</button>
+</form>
+
+<script src="t1.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+/* css/responsive.css */
+/* Additional responsive adjustments */
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.6rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    .logo-text {
+        font-size: 1.4rem;
+    }
+    
+    .btn-login span {
+        display: none;
+    }
+    
+    .btn-login {
+        padding: 0.6rem;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+    }
+    
+    .main-nav ul {
+        gap: var(--spacing-sm);
+    }
+    
+    .main-nav a {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .main-nav a i {
+        margin-right: 0;
+    }
+    
+    .main-nav a span {
+        display: none;
+    }
+    
+    .drama-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: var(--spacing-sm);
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .filters-sidebar {
+        padding: var(--spacing-md);
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Print styles */
+@media print {
+    .main-header,
+    .main-footer,
+    .carousel-btn,
+    .card-actions,
+    .search-container,
+    .user-actions {
+        display: none !important;
+    }
+    
+    body {
+        background-color: white !important;
+        color: black !important;
+    }
+    
+    .container {
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .drama-card {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+}

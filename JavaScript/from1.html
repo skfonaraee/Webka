@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Форма регистрации</title>
+<style>
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    padding: 20px;
+  }
+  form {
+    max-width: 400px;
+  }
+  input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px 0;
+    box-sizing: border-box;
+  }
+  .error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+  .success {
+    color: green;
+    font-size: 1em;
+    margin-bottom: 15px;
+  }
+  input.invalid {
+    border: 2px solid red;
+  }
+  input.valid {
+    border: 2px solid green;
+  }
+  .checkbox-group {
+  display: flex;
+  flex-direction: column; /* вертикально: сначала чекбокс+текст, потом ошибка */
+  margin-bottom: 15px;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center; /* выравнивание чекбокса и текста по центру */
+  gap: 10px; /* расстояние между чекбоксом и текстом */
+}
+
+.checkbox-row input {
+  width: auto;
+  height: auto;
+}
+
+</style>
+</head>
+<body>
+
+<h2>Registration</h2>
+
+<form id="registrationForm" novalidate>
+  <div id="successMessage" class="success"></div>
+
+  <label>Name:</label>
+  <input type="text" id="name" placeholder="Enter name">
+  <div id="nameError" class="error"></div>
+
+  <label>Email:</label>
+  <input type="email" id="email" placeholder="user@mail.com">
+  <div id="emailError" class="error"></div>
+
+  <label>Phone:</label>
+  <input type="text" id="phone" placeholder="+7XXXXXXXXXX or 8XXXXXXXXXX">
+  <div id="phoneError" class="error"></div>
+
+  <label>Password:</label>
+  <input type="password" id="password" placeholder="Enter password">
+
+  <label>Confirm Password:</label>
+  <input type="password" id="confirmPassword" placeholder="Confirm password">
+  <div id="passwordError" class="error"></div>
+
+  <div class="checkbox-group">
+    <div class="checkbox-row">
+      <input type="checkbox" id="agreement">
+      <label for="agreement">I agree to the terms and conditions</label>
+    </div>
+    <div id="agreementError" class="error"></div>
+  </div>
+
+  <button type="submit">Send</button>
+</form>
+
+<script>
+const form = document.getElementById('registrationForm');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const phoneInput = document.getElementById('phone');
+const passwordInput = document.getElementById('password');
+const confirmPasswordInput = document.getElementById('confirmPassword');
+const agreementCheckbox = document.getElementById('agreement');
+
+const nameError = document.getElementById('nameError');
+const emailError = document.getElementById('emailError');
+const phoneError = document.getElementById('phoneError');
+const passwordError = document.getElementById('passwordError');
+const agreementError = document.getElementById('agreementError');
+const successMessage = document.getElementById('successMessage');
+
+// Проверка имени
+function validateName() {
+  const value = nameInput.value.trim();
+  if (!value) {
+    nameError.textContent = "Name is required";
+    nameInput.classList.add('invalid');
+    nameInput.classList.remove('valid');
+    return false;
+  } else if (value.length < 3 || value.length > 15) {
+    nameError.textContent = "Name must be 3-15 characters long";
+    nameInput.classList.add('invalid');
+    nameInput.classList.remove('valid');
+    return false;
+  } else {
+    nameError.textContent = "";
+    nameInput.classList.add('valid');
+    nameInput.classList.remove('invalid');
+    return true;
+  }
+}
+
+// Проверка email с RegEx
+function validateEmail() {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailInput.value.trim()) {
+    emailError.textContent = "Email is required";
+    emailInput.classList.add('invalid');
+    emailInput.classList.remove('valid');
+    return false;
+  } else if (!regex.test(emailInput.value.trim())) {
+    emailError.textContent = "Invalid email format";
+    emailInput.classList.add('invalid');
+    emailInput.classList.remove('valid');
+    return false;
+  } else {
+    emailError.textContent = "";
+    emailInput.classList.add('valid');
+    emailInput.classList.remove('invalid');
+    return true;
+  }
+}
+
+// Проверка телефона с RegEx
+function validatePhone() {
+  const regex = /^(\+7|8)\d{10}$/;
+  if (!phoneInput.value.trim()) {
+    phoneError.textContent = "Phone is required";
+    phoneInput.classList.add('invalid');
+    phoneInput.classList.remove('valid');
+    return false;
+  } else if (!regex.test(phoneInput.value.trim())) {
+    phoneError.textContent = "Invalid phone format";
+    phoneInput.classList.add('invalid');
+    phoneInput.classList.remove('valid');
+    return false;
+  } else {
+    phoneError.textContent = "";
+    phoneInput.classList.add('valid');
+    phoneInput.classList.remove('invalid');
+    return true;
+  }
+}
+
+// Проверка пароля
+function validatePassword() {
+  const pass = passwordInput.value;
+  const confirmPass = confirmPasswordInput.value;
+  const regex = /\d/; // хотя бы одна цифра
+
+  if (!pass) {
+    passwordError.textContent = "Password is required";
+    passwordInput.classList.add('invalid');
+    return false;
+  } else if (pass.length < 8) {
+    passwordError.textContent = "Password must be at least 8 characters long";
+    passwordInput.classList.add('invalid');
+    return false;
+  } else if (!regex.test(pass)) {
+    passwordError.textContent = "Password must contain at least one digit";
+    passwordInput.classList.add('invalid');
+    return false;
+  } else if (pass !== confirmPass) {
+    passwordError.textContent = "Passwords do not match";
+    passwordInput.classList.add('invalid');
+    confirmPasswordInput.classList.add('invalid');
+    return false;
+  } else {
+    passwordError.textContent = "";
+    passwordInput.classList.remove('invalid');
+    passwordInput.classList.add('valid');
+    confirmPasswordInput.classList.remove('invalid');
+    confirmPasswordInput.classList.add('valid');
+    return true;
+  }
+}
+
+// Проверка чекбокса
+function validateAgreement() {
+  if (!agreementCheckbox.checked) {
+    agreementError.textContent = "You must agree to the terms and conditions";
+    return false;
+  } else {
+    agreementError.textContent = "";
+    return true;
+  }
+}
+
+// Валидация при вводе имени
+nameInput.addEventListener('input', validateName);
+
+// Проверка формы при отправке
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); // запрет отправки до успешной проверки
+
+  const isNameValid = validateName();
+  const isEmailValid = validateEmail();
+  const isPhoneValid = validatePhone();
+  const isPasswordValid = validatePassword();
+  const isAgreementValid = validateAgreement();
+
+  if (isNameValid && isEmailValid && isPhoneValid && isPasswordValid && isAgreementValid) {
+    successMessage.textContent = "Registration was successful";
+    form.reset();
+    // убираем рамки после очистки
+    document.querySelectorAll('input').forEach(input => input.classList.remove('valid'));
+  } else {
+    successMessage.textContent = "";
+  }
+});
+</script>
+
+</body>
+</html>

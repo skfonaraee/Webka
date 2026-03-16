@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoramaNight | Korean Drama Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html">
+                        <div class="logo-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <span class="logo-text">DoramaNight</span>
+                    </a>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search dramas by title, genre, actor...">
+                        <div class="search-results" id="searchResults"></div>
+                    </div>
+                </div>
+                
+                <!-- User Actions -->
+                <div class="user-actions">
+                    <a href="login.html" class="btn-login" id="loginBtn">
+                        <i class="fas fa-user"></i>
+                        <span>Login / Register</span>
+                    </a>
+                    <div class="user-profile hidden" id="userProfile">
+                        <div class="profile-dropdown">
+                            <img src="images/default-avatar.jpg" alt="User Avatar" class="profile-avatar">
+                            <span class="profile-name">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                            <div class="dropdown-menu">
+                                <a href="profile.html"><i class="fas fa-user-circle"></i> My Profile</a>
+                                <a href="profile.html#bookmarks"><i class="fas fa-bookmark"></i> My Bookmarks</a>
+                                <a href="profile.html#settings"><i class="fas fa-cog"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#popular"><i class="fas fa-fire"></i> Popular</a></li>
+                    <li><a href="#premiere"><i class="fas fa-star"></i> Premiers</a></li>
+                    <li><a href="#upcoming"><i class="fas fa-calendar-alt"></i> Upcoming</a></li>
+                    <li><a href="ongoing.html"><i class="fas fa-tv"></i> Ongoing</a></li>
+                    <li><a href="catalog.html"><i class="fas fa-list"></i> Catalog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Discover Your Next K-Drama Obsession</h1>
+                    <p class="hero-subtitle">Explore thousands of Korean dramas, track your progress, and join our community of drama lovers.</p>
+                    <a href="#catalog" class="btn-hero">
+                        <span>Start Exploring</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">1,250+</span>
+                        <span class="stat-label">Dramas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">85,000+</span>
+                        <span class="stat-label">Community</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4.8</span>
+                        <span class="stat-label">Avg Rating</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Drama Carousels -->
+        <section class="carousels-section">
+            <div class="container">
+                <!-- Popular Carousel -->
+                <div class="carousel-container" id="popular">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-fire"></i>
+                            Popular This Week
+                        </h2>
+                        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="carousel" id="popularCarousel">
+                        <!-- Drama cards will be populated by JavaScript -->
+                    </div>
+                    <button class="carousel-btn prev" data-carousel="popular">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next" data-carousel="popular">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Premiere Carousel -->
+                <div class="carousel-container" id="premiere">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-star"></i>
+                            Latest Premieres
+                        </h2>
+                        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="carousel" id="premiereCarousel">
+                        <!-- Drama cards will be populated by JavaScript -->
+                    </div>
+                    <button class="carousel-btn prev" data-carousel="premiere">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next" data-carousel="premiere">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Upcoming Carousel -->
+                <div class="carousel-container" id="upcoming">
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            Coming Soon
+                        </h2>
+                        <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="carousel" id="upcomingCarousel">
+                        <!-- Drama cards will be populated by JavaScript -->
+                    </div>
+                    <button class="carousel-btn prev" data-carousel="upcoming">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="carousel-btn next" data-carousel="upcoming">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-moon"></i>
+                        <span>DoramaNight</span>
+                    </div>
+                    <p class="footer-description">
+                        Your ultimate destination for Korean dramas. Discover, track, and discuss your favorite shows with our community.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Popular Dramas</a></li>
+                        <li><a href="#">Ongoing Dramas</a></li>
+                        <li><a href="#">Upcoming Dramas</a></li>
+                        <li><a href="#">Top Rated</a></li>
+                        <li><a href="#">Genres</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Forums</a></li>
+                        <li><a href="#">Reviews</a></li>
+                        <li><a href="#">Watch Parties</a></li>
+                        <li><a href="#">Fan Art</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 DoramaNight. All rights reserved. This site is for educational purposes only.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <span class="divider">|</span>
+                    <a href="#">Terms of Service</a>
+                    <span class="divider">|</span>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bookmark Modal -->
+    <div class="modal bookmark-modal" id="bookmarkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add to Bookmarks</h3>
+                <button class="modal-close" id="closeBookmarkModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Select status for <span id="modalDramaTitle">Drama Title</span>:</p>
+                <div class="bookmark-options">
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="watching">
+                        <div class="option-content">
+                            <i class="fas fa-play-circle"></i>
+                            <div>
+                                <h4>Watching</h4>
+                                <p>Currently watching this drama</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="planned">
+                        <div class="option-content">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Planned</h4>
+                                <p>Plan to watch later</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="completed">
+                        <div class="option-content">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4>Completed</h4>
+                                <p>Finished watching</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="dropped">
+                        <div class="option-content">
+                            <i class="fas fa-times-circle"></i>
+                            <div>
+                                <h4>Dropped</h4>
+                                <p>Stopped watching</p>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="bookmark-option">
+                        <input type="radio" name="bookmarkStatus" value="favorites">
+                        <div class="option-content">
+                            <i class="fas fa-heart"></i>
+                            <div>
+                                <h4>Favorites</h4>
+                                <p>All-time favorites</p>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelBookmark">Cancel</button>
+                <button class="btn-primary" id="saveBookmark">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="data/dramas.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/rating.js"></script>
+    <script src="js/bookmarks.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>
